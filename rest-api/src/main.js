@@ -1,10 +1,18 @@
-var express = require('express')
-var app = express()
+const express = require("express");
+const app = express();
 
-// respond with "hello world" when a GET request is made to the homepage
-app.get('/hello', function (req, res) {
-  res.send('hello world')
-})
+const { getUsers } = require("./users");
+
+//  get all the current users
+app.get("/users", (req, res) => {
+  getUsers()
+    .then(users => {
+      res.json(users);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).end();
+    });
+});
 
 app.listen(8000);
-

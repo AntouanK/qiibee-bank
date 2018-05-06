@@ -22,4 +22,10 @@ services:
 
     rest-api:
         build: ./rest-api
+        environment:
+            - MONGO_USER=mongoroot
+            - MONGO_PASSWORD=qweq9t6i8cnca6xm
+            - MONGO_HOST=mongo
+            - MONGO_PORT=27017
+
 
