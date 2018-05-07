@@ -1,4 +1,5 @@
 const db = require("./db");
+const { resetTransactions } = require("./transactions");
 
 //  the collection name for the db
 const usersCollection = "users";
@@ -17,12 +18,10 @@ const defaultUsers = [
 //  get all existing users
 const getUsers = async () => {
   const mainDb = await db.getMainDb();
-  const users = mainDb
+  return mainDb
     .collection(usersCollection)
     .find({})
     .toArray();
-
-  return users;
 };
 
 //  ----------------------------------------------------------------------------
@@ -36,6 +35,9 @@ const initialiseUsers = async () => {
   const insertResult = await mainDb
     .collection(usersCollection)
     .insertMany(defaultUsers);
+
+  await resetTransactions();
+
   return insertResult.ops;
 };
 

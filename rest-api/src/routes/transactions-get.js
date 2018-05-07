@@ -1,9 +1,7 @@
-const { makeTransaction } = require("../users");
+const { getTransactions } = require("../transactions");
 
 module.exports = (req, res) => {
-  const { from, to, amount } = req.body;
-
-  makeTransaction({ from, to, amount })
+  getTransactions()
     .then(res.json.bind(res))
     .catch(err => {
       console.error(err);
