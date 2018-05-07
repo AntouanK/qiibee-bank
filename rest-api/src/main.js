@@ -1,18 +1,11 @@
 const express = require("express");
 const app = express();
 
-const { getUsers } = require("./users");
+const usersGet = require("./routes/users-get");
+const usersInitialise = require("./routes/users-initialise");
 
 //  get all the current users
-app.get("/users", (req, res) => {
-  getUsers()
-    .then(users => {
-      res.json(users);
-    })
-    .catch(err => {
-      console.error(err);
-      res.status(500).end();
-    });
-});
+app.get("/users", usersGet);
+app.get("/users/initialise", usersInitialise);
 
 app.listen(8000);
