@@ -1,10 +1,17 @@
-var express = require('express')
-var app = express()
+const express = require("express");
+const app = express();
+const bodyParser = require("body-parser");
+const jsonParser = bodyParser.json();
 
-// respond with "hello world" when a GET request is made to the homepage
-app.get('/hello', function (req, res) {
-  res.send('hello world')
-})
+const usersGet = require("./routes/users-get");
+const usersInitialise = require("./routes/users-initialise");
+const usersTransaction = require("./routes/users-transaction");
+const transactionsGet = require("./routes/transactions-get");
+
+//  get all the current users
+app.get("/users", usersGet);
+app.get("/users/initialise", usersInitialise);
+app.post("/users/transaction", jsonParser, usersTransaction);
+app.get("/transactions", transactionsGet);
 
 app.listen(8000);
-
